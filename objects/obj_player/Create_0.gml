@@ -1,21 +1,7 @@
-// VARIABLES ESENCIALES
-velocidad = 2;          // Velocidad horizontal de caminar
-mov = "frontal";
-
-// VARIABLES DE MOVIMIENTOS IGUALADAS A FALSE
-derecha = false;
-izquierda = false;
-arriba = false;
-abajo = false;
-
-// VARIABLES DE FÍSICA Y SALTO
-jump_speed = -12;
-gravedad = 0.4;
-
-// *** CAMBIO IMPORTANTE ***
-// Usamos una variable personalizada, NO 'vspeed'
-v_velocidad = 0;
-
-invencible = false;
-h_knockback = 10;
-golpe_dado = false;
+// Evento Create de obj_player
+hsp = 0;       // Velocidad horizontal actual
+vsp = 0;       // Velocidad vertical actual
+grv = 1;     // Fuerza de gravedad
+walksp = 7;    // Velocidad máxima de caminata
+jumpsp = -40;   // Fuerza del salto (negativa porque en GM el eje Y sube hacia abajo)
+mask_index = spr_player_idle;

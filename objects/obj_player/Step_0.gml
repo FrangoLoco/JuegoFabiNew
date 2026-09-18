@@ -43,7 +43,7 @@ y = y + vsp;
 if (!place_meeting(x, y + 1, obj_colision))
 {
     sprite_index = spr_player_salto;
-    image_speed = 0; // Detiene la reproducción de fotogramas (útil si el salto es un solo frame)
+    image_speed = 1; // Detiene la reproducción de fotogramas (útil si el salto es un solo frame)
     
     // Opcional: Control de frames si el sprite de salto tiene animaciones de subida y caída
     // if (sign(vsp) > 0) image_index = 1; else image_index = 0;

@@ -1,10 +1,10 @@
 {
   "$GMSprite":"v2",
   "%Name":"spr_player_salto",
-  "bboxMode":0,
+  "bboxMode":2,
   "bbox_bottom":1486,
   "bbox_left":387,
-  "bbox_right":1155,
+  "bbox_right":1014,
   "bbox_top":109,
   "collisionKind":1,
   "collisionTolerance":0,

@@ -8,7 +8,7 @@
     "children":[],
     "name":"Default",
   },
-  "defaultScriptType":0,
+  "defaultScriptType":1,
   "Folders":[
     {"$GMFolder":"","%Name":"Background","folderPath":"folders/Background.yy","name":"Background","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Fonts","folderPath":"folders/Fonts.yy","name":"Fonts","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -33,11 +33,15 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.14.4.222",
+    "IDEVersion":"2026.0.0.16",
   },
   "name":"BACK TO HOME",
   "resources":[
+    {"id":{"name":"fnt_debug","path":"fonts/fnt_debug/fnt_debug.yy",},},
     {"id":{"name":"obj_colision","path":"objects/obj_colision/obj_colision.yy",},},
+    {"id":{"name":"obj_debug_teclas","path":"objects/obj_debug_teclas/obj_debug_teclas.yy",},},
+    {"id":{"name":"obj_enemigo_padre","path":"objects/obj_enemigo_padre/obj_enemigo_padre.yy",},},
+    {"id":{"name":"obj_hitbox_ataque","path":"objects/obj_hitbox_ataque/obj_hitbox_ataque.yy",},},
     {"id":{"name":"obj_limon","path":"objects/obj_limon/obj_limon.yy",},},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
     {"id":{"name":"rm_01","path":"rooms/rm_01/rm_01.yy",},},
@@ -51,6 +55,7 @@
     {"id":{"name":"spr_fondo_1","path":"sprites/spr_fondo_1/spr_fondo_1.yy",},},
     {"id":{"name":"spr_gnomo_ataque","path":"sprites/spr_gnomo_ataque/spr_gnomo_ataque.yy",},},
     {"id":{"name":"spr_gnomo","path":"sprites/spr_gnomo/spr_gnomo.yy",},},
+    {"id":{"name":"spr_hitbox","path":"sprites/spr_hitbox/spr_hitbox.yy",},},
     {"id":{"name":"spr_limon_salto","path":"sprites/spr_limon_salto/spr_limon_salto.yy",},},
     {"id":{"name":"spr_limon","path":"sprites/spr_limon/spr_limon.yy",},},
     {"id":{"name":"spr_naranja_ataque","path":"sprites/spr_naranja_ataque/spr_naranja_ataque.yy",},},

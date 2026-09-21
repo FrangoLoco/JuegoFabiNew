@@ -1,72 +1,71 @@
-// 1. Capturar la entrada del teclado (Soporta flechas y WASD)
+// 1. Entradas de Control
 var key_left = keyboard_check(vk_left) || keyboard_check(ord("A"));
 var key_right = keyboard_check(vk_right) || keyboard_check(ord("D"));
 var key_jump = keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W"));
+var key_ataque = keyboard_check_pressed(ord("Z")); 
 
-// 2. Calcular la dirección y el movimiento horizontal
+// 2. Físicas de desplazamiento continuo
 var move = key_right - key_left;
 hsp = move * walksp;
-
-// 3. Aplicar gravedad a la velocidad vertical
 vsp = vsp + grv;
 
-// 4. Lógica de salto (Solo si está tocando el suelo)
 if (place_meeting(x, y + 1, obj_colision)) && (key_jump)
 {
     vsp = jumpsp;
 }
 
-// 5. Colisión Horizontal
+// 3. Activación del Ataque
+if (key_ataque) && (estado == "libre")
+{
+    estado = "atacando";
+    image_index = 0; // Obliga al sprite de ataque a leer su único fotograma válido
+    
+    var hitbox = instance_create_depth(x, y - 30, depth, obj_hitbox_ataque);
+    hitbox.image_xscale = direccion_visual; 
+    
+    alarm[1] = 40; 
+}
+
+// 4. Motor de Colisiones Geométricas
 if (place_meeting(x + hsp, y, obj_colision))
 {
-    while (!place_meeting(x + sign(hsp), y, obj_colision))
-    {
-        x = x + sign(hsp);
-    }
+    while (!place_meeting(x + sign(hsp), y, obj_colision)) x += sign(hsp);
     hsp = 0;
 }
-x = x + hsp;
+x += hsp;
 
-// 6. Colisión Vertical
 if (place_meeting(x, y + vsp, obj_colision))
 {
-    while (!place_meeting(x, y + sign(vsp), obj_colision))
-    {
-        y = y + sign(vsp);
-    }
+    while (!place_meeting(x, y + sign(vsp), obj_colision)) y += sign(vsp);
     vsp = 0;
 }
-y = y + vsp;
+y += vsp;
 
-// 7. Control de Animaciones y Estado
-// Evaluar si el personaje está en el aire (no hay colisión un píxel por debajo)
-if (!place_meeting(x, y + 1, obj_colision))
+// 5. Control de renderizado jerárquico (Debe ser lo ÚLTIMO en tu evento Step)
+if (estado == "atacando")
 {
-    sprite_index = spr_player_salto;
-    image_speed = 1; // Detiene la reproducción de fotogramas (útil si el salto es un solo frame)
-    
-    // Opcional: Control de frames si el sprite de salto tiene animaciones de subida y caída
-    // if (sign(vsp) > 0) image_index = 1; else image_index = 0;
+    // Prioridad 1: Si ataca, fuerza el cuchillo e ignora todo lo demás
+    sprite_index = spr_player_cuchillo;
 }
 else
 {
-    // El personaje está tocando el suelo
-    image_speed = 1; // Restaura la velocidad normal de animación definida en el sprite
-    
-    if (hsp == 0)
+    // Prioridad 2: Si está libre, reacciona a la física
+    if (!place_meeting(x, y + 1, obj_colision))
     {
-        // Sin movimiento horizontal
-        sprite_index = spr_player_idle;
+        sprite_index = spr_player_salto;
     }
     else
     {
-        // Con vector de movimiento horizontal activo
-        sprite_index = spr_player_caminar;
+        if (hsp == 0) 
+        {
+            sprite_index = spr_player_idle;
+        }
+        else 
+        {
+            sprite_index = spr_player_caminar;
+        }
     }
 }
 
-// 8. Dirección Visual (Invertir el sprite en el eje X)
-if (hsp != 0)
-{
-    image_xscale = sign(hsp);
-}
+// 6. Orientación visual
+if (hsp != 0) direccion_visual = sign(hsp);

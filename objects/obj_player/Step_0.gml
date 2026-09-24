@@ -12,6 +12,7 @@ vsp = vsp + grv;
 if (place_meeting(x, y + 1, obj_colision)) && (key_jump)
 {
     vsp = jumpsp;
+	audio_play_sound(snd_salto, 1, false); //añadido nuevo para que suene cuando brinque jijiji -A
 }
 
 // 3. Activación del Ataque
@@ -20,6 +21,7 @@ if (key_ataque) && (estado == "libre")
     estado = "atacando";
     image_index = 0; // Obliga al sprite de ataque a leer su único fotograma válido
     
+	audio_play_sound(snd_cuchillo, 1, false); //sonidito chidillo que quiso el gilberto -A
     var hitbox = instance_create_depth(x, y - 30, depth, obj_hitbox_ataque);
     hitbox.image_xscale = direccion_visual; 
     
@@ -50,7 +52,7 @@ if (estado == "atacando")
 else
 {
     // Prioridad 2: Si está libre, reacciona a la física
-    if (!place_meeting(x, y + 1, obj_colision))
+    if (!place_meeting(x, y + 1, obj_colision)) 
     {
         sprite_index = spr_player_salto;
     }
@@ -59,10 +61,18 @@ else
         if (hsp == 0) 
         {
             sprite_index = spr_player_idle;
+			audio_stop_sound(snd_pasos); //se añadio esto para frenar de golpe el sonido -A
         }
         else 
         {
             sprite_index = spr_player_caminar;
+			
+			// sonido tipo bucle -A
+			
+			if (!audio_is_playing(snd_pasos))
+            {
+                audio_play_sound(snd_pasos, 1, true);
+            }
         }
     }
 }

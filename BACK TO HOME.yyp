@@ -33,7 +33,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2026.0.0.16",
+    "IDEVersion":"2024.14.4.222",
   },
   "name":"BACK TO HOME",
   "resources":[
@@ -44,10 +44,12 @@
     {"id":{"name":"obj_hitbox_ataque","path":"objects/obj_hitbox_ataque/obj_hitbox_ataque.yy",},},
     {"id":{"name":"obj_limon","path":"objects/obj_limon/obj_limon.yy",},},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
+    {"id":{"name":"obj_sonido_fondo","path":"objects/obj_sonido_fondo/obj_sonido_fondo.yy",},},
     {"id":{"name":"rm_01","path":"rooms/rm_01/rm_01.yy",},},
     {"id":{"name":"snd_bosque","path":"sounds/snd_bosque/snd_bosque.yy",},},
     {"id":{"name":"snd_combate","path":"sounds/snd_combate/snd_combate.yy",},},
     {"id":{"name":"snd_correr","path":"sounds/snd_correr/snd_correr.yy",},},
+    {"id":{"name":"snd_cuchillo","path":"sounds/snd_cuchillo/snd_cuchillo.yy",},},
     {"id":{"name":"snd_fondo","path":"sounds/snd_fondo/snd_fondo.yy",},},
     {"id":{"name":"snd_pasos","path":"sounds/snd_pasos/snd_pasos.yy",},},
     {"id":{"name":"snd_salto","path":"sounds/snd_salto/snd_salto.yy",},},

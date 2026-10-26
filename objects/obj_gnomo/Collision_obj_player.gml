@@ -1,8 +1,4 @@
-// Si el gnomo está cayendo en picada o saltando, le resta vida al jugador
-if (estado == "picada" || estado == "salto") {
-    if (!other.invulnerable) {
-        other.vidas -= 1;
-        other.invulnerable = true;
-        other.alarm[0] = 30; // Tiempo de inmunidad del jugador
-    }
+// Si el gnomo está saltando o cayendo en picada, le resta vida al jugador
+if (estado == "picada" || estado == "salto" || estado == "apice") {
+    other.recibir_danio(25, 30); // 25 de daño, 30 = tiempo de inmunidad del jugador
 }

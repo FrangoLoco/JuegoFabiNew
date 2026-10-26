@@ -24,6 +24,7 @@ if (key_ataque) && (estado == "libre")
 	audio_play_sound(snd_cuchillo, 1, false); //sonidito chidillo que quiso el gilberto -A
     var hitbox = instance_create_depth(x, y - 30, depth, obj_hitbox_ataque);
     hitbox.image_xscale = direccion_visual; 
+    hitbox.danio = danio_ataque;
     
     alarm[1] = 40; 
 }
@@ -79,3 +80,20 @@ else
 
 // 6. Orientación visual
 if (hsp != 0) direccion_visual = sign(hsp);
+
+// 7. Contador de monedas del HUD: sube de uno en uno con un pequeño salto de tamaño
+if (monedas_hud < global.monedas)
+{
+    temporizador_monedas -= 1;
+    if (temporizador_monedas <= 0)
+    {
+        monedas_hud += 1;
+        escala_monedas = 1.4;
+        temporizador_monedas = 8;
+    }
+}
+else
+{
+    monedas_hud = global.monedas;
+}
+escala_monedas = lerp(escala_monedas, 1, 0.15);

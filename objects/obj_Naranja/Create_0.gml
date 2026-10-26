@@ -4,8 +4,8 @@ image_xscale = 2;
 image_yscale = 2;
 
 // Variables de detección y ataque
-distancia_deteccion = 1500; // Ajusta según la distancia deseada
-cooldown_ataque = 90;      // Tiempo entre ataques (en frames)
+distancia_deteccion = 2000; // Ajusta según la distancia deseada
+cooldown_ataque = 130;      // Tiempo entre ataques (en frames)
 puedo_atacar = true;
 ha_disparado = false;
 

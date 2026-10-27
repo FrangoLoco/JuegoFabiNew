@@ -1,8 +1,6 @@
 // Evento Draw GUI de obj_player
-// HUD de salud: frame 0 = max, 1 = med, 2 = baja, 3 = min
-// Cada 25 puntos de vida perdidos se pasa al siguiente frame (100 = max, 75 = med, 50 = baja, 25 o menos = min)
-var frames_hud = sprite_get_number(spr_hud_salud);
-var frame_hud = clamp(floor((vida_max - vida) / (vida_max / frames_hud)), 0, frames_hud - 1);
+// HUD de salud: el frame depende de la vida (ver obtener_frame_salud en el Create)
+var frame_hud = obtener_frame_salud();
 
 // Las imágenes del HUD se diseñaron sobre un lienzo de 3840x2160, se escala al tamaño real de la GUI
 var escala_hud = display_get_gui_width() / 3840;
@@ -25,14 +23,7 @@ var moneda_y = 230 * escala_hud;
 var moneda_x = texto_derecha - ancho_texto - 80 * escala_hud;
 var radio = 45 * escala_hud * escala_monedas;
 
-draw_set_color(c_black);
-draw_circle(moneda_x, moneda_y, radio, false);
-draw_set_color(make_color_rgb(255, 200, 40));
-draw_circle(moneda_x, moneda_y, radio * 0.85, false);
-draw_set_color(make_color_rgb(200, 130, 20));
-draw_circle(moneda_x, moneda_y, radio * 0.55, true);
-draw_set_color(c_white);
-draw_circle(moneda_x - radio * 0.35, moneda_y - radio * 0.35, radio * 0.12, false);
+dibujar_moneda(moneda_x, moneda_y, radio);
 
 draw_set_halign(fa_right);
 dibujar_texto_contorno(texto_derecha, moneda_y, texto_monedas, escala_hud * escala_monedas, make_color_rgb(255, 220, 60), 4 * escala_hud);

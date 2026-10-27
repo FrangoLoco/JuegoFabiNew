@@ -8,7 +8,7 @@ color_jugo = make_color_rgb(220, 60, 60);
 
 // Sprites iniciales
 sprite_index = spr_gnomo;
-orientacion_sprite = 1; // Cambia a -1 si el gnomo se ve caminando de espaldas
+orientacion_sprite = -1; // El sprite del gnomo mira a la izquierda (cambia a 1 si se ve caminando de espaldas)
 
 // Variables de movimiento y física
 hsp = 0;              // Velocidad horizontal

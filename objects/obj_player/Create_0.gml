@@ -20,6 +20,17 @@ temporizador_monedas = 0;
 
 global.sacudida = 0; // Intensidad de la sacudida de cámara (ver End Step y sacudir_camara)
 
+// Menú de pausa: uno por sala
+if (!instance_exists(obj_pausa)) instance_create_depth(0, 0, -10000, obj_pausa);
+
+// Frame del HUD de salud: 0 = max, 1 = med, 2 = baja, 3 = min
+// Cada 25 puntos de vida perdidos se pasa al siguiente frame (100 = max, 75 = med, 50 = baja, 25 o menos = min)
+obtener_frame_salud = function()
+{
+    var frames_hud = sprite_get_number(spr_hud_salud);
+    return clamp(floor((vida_max - vida) / (vida_max / frames_hud)), 0, frames_hud - 1);
+}
+
 // Resta vida al jugador y le da inmunidad temporal. Los enemigos llaman a esto en vez de tocar "vida" directamente
 recibir_danio = function(cantidad, tiempo_inmunidad)
 {

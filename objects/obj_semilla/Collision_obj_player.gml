@@ -1,11 +1,6 @@
 // Aplicar daño si el jugador no es invulnerable
-if (!other.invulnerable) {
-    other.vidas -= 1;
-    
-    // Inmunidad temporal para evitar pérdidas múltiples de vida
-    other.invulnerable = true;
-    other.alarm[0] = 30; // Ajusta según la alarma de tu obj_player
-}
+// Inmunidad temporal de 30 fotogramas para evitar pérdidas múltiples de vida
+other.recibir_danio(25, 30); // 25 de daño
 
 // Destruir la semilla al chocar
 instance_destroy();

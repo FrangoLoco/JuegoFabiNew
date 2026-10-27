@@ -3,7 +3,7 @@ draw_set_color(c_black);
 draw_set_halign(fa_left);
 
 var pos_x = 20;
-var pos_y = 100; // Dibuja debajo del texto de las vidas para no superponerse
+var pos_y = 660; // Dibuja debajo del HUD de salud para no superponerse
 
 // 1. Dibujar teclas mantenidas presionadas actualmente
 var teclas_actuales = "Mantenido: ";
@@ -36,6 +36,6 @@ draw_set_alpha(1);
 // Dibuja el estado actual del jugador en la pantalla
 if (instance_exists(obj_player))
 {
-    draw_text(20, 100, "ESTADO DEL JUGADOR: " + obj_player.estado);
+    draw_text(20, 520, "ESTADO DEL JUGADOR: " + obj_player.estado);
 }
-draw_text(20, 160, "HITBOXES EN MEMORIA: " + string(instance_number(obj_hitbox_ataque)));
+draw_text(20, 580, "HITBOXES EN MEMORIA: " + string(instance_number(obj_hitbox_ataque)));

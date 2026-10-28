@@ -65,6 +65,36 @@ function dibujar_boton(_x, _y, _medio_ancho, _medio_alto, _texto, _elegido, _cre
     }
 }
 
+// Botón redondo para los controles táctiles: contorno negro, aro morado/azul y centro oscuro (verde si está presionado)
+function dibujar_boton_circular(_x, _y, _radio, _presionado, _alfa)
+{
+    draw_set_alpha(_alfa);
+    draw_set_color(c_black);
+    draw_circle(_x, _y, _radio, false);
+    draw_circle_color(_x, _y, _radio * 0.9, COLOR_MARCO_AZUL, COLOR_MARCO_MORADO, false);
+    draw_set_color(c_black);
+    draw_circle(_x, _y, _radio * 0.74, false);
+    draw_set_color(_presionado ? COLOR_VERDE_VIDA : COLOR_FONDO_BARRA);
+    draw_circle(_x, _y, _radio * 0.68, false);
+    draw_set_alpha(1);
+}
+
+// Triángulo blanco con contorno negro (para las flechas de los controles)
+function dibujar_triangulo_contorno(_x1, _y1, _x2, _y2, _x3, _y3, _grosor, _alfa)
+{
+    draw_set_alpha(_alfa);
+    var cx = (_x1 + _x2 + _x3) / 3;
+    var cy = (_y1 + _y2 + _y3) / 3;
+
+    // El contorno es el mismo triángulo un poco más grande (_grosor = 0.3 es 30 % más grande), dibujado detrás
+    var g = 1 + _grosor;
+    draw_set_color(c_black);
+    draw_triangle(cx + (_x1 - cx) * g, cy + (_y1 - cy) * g, cx + (_x2 - cx) * g, cy + (_y2 - cy) * g, cx + (_x3 - cx) * g, cy + (_y3 - cy) * g, false);
+    draw_set_color(c_white);
+    draw_triangle(_x1, _y1, _x2, _y2, _x3, _y3, false);
+    draw_set_alpha(1);
+}
+
 // Dibuja una moneda dorada con contorno negro
 function dibujar_moneda(_x, _y, _radio)
 {

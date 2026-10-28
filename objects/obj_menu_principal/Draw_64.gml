@@ -72,7 +72,7 @@ switch (pantalla)
         }
 
         draw_set_halign(fa_center);
-        dibujar_texto_contorno(cx, alto_gui - 110 * e, "W/S  Elegir      Enter  Aceptar", 0.55 * e, make_color_rgb(150, 170, 240), 3 * e);
+        if (!es_movil()) dibujar_texto_contorno(cx, alto_gui - 110 * e, "W/S  Elegir      Enter  Aceptar", 0.55 * e, make_color_rgb(150, 170, 240), 3 * e); // En celular no hay teclado
         break;
 
     case "creditos":

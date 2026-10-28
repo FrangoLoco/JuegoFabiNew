@@ -20,6 +20,10 @@ temporizador_monedas = 0;
 
 global.sacudida = 0; // Intensidad de la sacudida de cámara (ver End Step y sacudir_camara)
 
+// Controles táctiles: solo en celular (ver es_movil en scr_controles)
+reiniciar_toques();
+if (es_movil() && !instance_exists(obj_controles_tactiles)) instance_create_depth(0, 0, -9000, obj_controles_tactiles);
+
 // Menú de pausa: uno por sala
 if (!instance_exists(obj_pausa)) instance_create_depth(0, 0, -10000, obj_pausa);
 

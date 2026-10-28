@@ -42,7 +42,7 @@
   "resources":[
     {"id":{"name":"fnt_debug","path":"fonts/fnt_debug/fnt_debug.yy",},},
     {"id":{"name":"obj_colision","path":"objects/obj_colision/obj_colision.yy",},},
-    {"id":{"name":"obj_debug_teclas","path":"objects/obj_debug_teclas/obj_debug_teclas.yy",},},
+    {"id":{"name":"obj_controles_tactiles","path":"objects/obj_controles_tactiles/obj_controles_tactiles.yy",},},
     {"id":{"name":"obj_enemigo_padre","path":"objects/obj_enemigo_padre/obj_enemigo_padre.yy",},},
     {"id":{"name":"obj_gnomo","path":"objects/obj_gnomo/obj_gnomo.yy",},},
     {"id":{"name":"obj_hitbox_ataque","path":"objects/obj_hitbox_ataque/obj_hitbox_ataque.yy",},},
@@ -60,6 +60,7 @@
     {"id":{"name":"rm_02","path":"rooms/rm_02/rm_02.yy",},},
     {"id":{"name":"rm_03","path":"rooms/rm_03/rm_03.yy",},},
     {"id":{"name":"rm_menu","path":"rooms/rm_menu/rm_menu.yy",},},
+    {"id":{"name":"scr_controles","path":"scripts/scr_controles/scr_controles.yy",},},
     {"id":{"name":"scr_dibujo","path":"scripts/scr_dibujo/scr_dibujo.yy",},},
     {"id":{"name":"scr_efectos","path":"scripts/scr_efectos/scr_efectos.yy",},},
     {"id":{"name":"scr_opciones","path":"scripts/scr_opciones/scr_opciones.yy",},},

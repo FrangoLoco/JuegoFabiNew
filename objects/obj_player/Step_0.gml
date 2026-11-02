@@ -1,3 +1,10 @@
+// Inventario: se puede abrir/cerrar en cualquier momento sin detener al jugador
+if (keyboard_check_pressed(ord("X")))
+{
+    inventario_abierto = !inventario_abierto;
+}
+inventario_alpha = lerp(inventario_alpha, inventario_abierto ? 1 : 0, 0.2);
+
 // 1. Entradas de Control
 var key_left = keyboard_check(vk_left) || keyboard_check(ord("A"));
 var key_right = keyboard_check(vk_right) || keyboard_check(ord("D"));
@@ -12,16 +19,16 @@ vsp = vsp + grv;
 if (place_meeting(x, y + 1, obj_colision)) && (key_jump)
 {
     vsp = jumpsp;
-	audio_play_sound(snd_salto, 1, false); //añadido nuevo para que suene cuando brinque jijiji -A
+    audio_play_sound(snd_salto, 1, false);
 }
 
 // 3. Activación del Ataque
 if (key_ataque) && (estado == "libre")
 {
     estado = "atacando";
-    image_index = 0; // Obliga al sprite de ataque a leer su único fotograma válido
+    image_index = 0;
     
-	audio_play_sound(snd_cuchillo, 1, false); //sonidito chidillo que quiso el gilberto -A
+    audio_play_sound(snd_cuchillo, 1, false);
     var hitbox = instance_create_depth(x, y - 30, depth, obj_hitbox_ataque);
     hitbox.image_xscale = direccion_visual; 
     hitbox.danio = danio_ataque;
@@ -47,12 +54,10 @@ y += vsp;
 // 5. Control de renderizado jerárquico (Debe ser lo ÚLTIMO en tu evento Step)
 if (estado == "atacando")
 {
-    // Prioridad 1: Si ataca, fuerza el cuchillo e ignora todo lo demás
     sprite_index = spr_player_cuchillo;
 }
 else
 {
-    // Prioridad 2: Si está libre, reacciona a la física
     if (!place_meeting(x, y + 1, obj_colision)) 
     {
         sprite_index = spr_player_salto;
@@ -62,20 +67,24 @@ else
         if (hsp == 0) 
         {
             sprite_index = spr_player_idle;
-			audio_stop_sound(snd_pasos); //se añadio esto para frenar de golpe el sonido -A
         }
         else 
         {
             sprite_index = spr_player_caminar;
-			
-			// sonido tipo bucle -A
-			
-			if (!audio_is_playing(snd_pasos))
-            {
-                audio_play_sound(snd_pasos, 1, true);
-            }
         }
     }
+}
+
+// 5. Sonido de pasos: solo suena al caminar por el suelo, en estado libre
+var caminando = (estado == "libre") && place_meeting(x, y + 1, obj_colision) && (hsp != 0);
+
+if (caminando && !audio_is_playing(snd_pasos))
+{
+    audio_play_sound(snd_pasos, 1, true);
+}
+else if (!caminando && audio_is_playing(snd_pasos))
+{
+    audio_stop_sound(snd_pasos);
 }
 
 // 6. Orientación visual

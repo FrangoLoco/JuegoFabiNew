@@ -50,7 +50,7 @@ dibujar_corazon(cx - 810 * e, fila_vida - 52 * e, e, aparicion);
 dibujar_texto_contorno(cx - 668 * e, fila_vida, string(vida_jugador), e, c_white, 4 * e);
 
 var fila_monedas = cy + 240 * e;
-dibujar_moneda(cx - 752 * e, fila_monedas, 50 * e);
+draw_sprite_ext(spr_moneda, 0, cx - 752 * e, fila_monedas, e, e, 0, c_white, 1);
 dibujar_texto_contorno(cx - 668 * e, fila_monedas, "x " + string(global.monedas), e, make_color_rgb(255, 220, 60), 4 * e);
 
 // 6. Botones: el elegido se pinta verde como la barra de vida llena y tiene un corazón al lado

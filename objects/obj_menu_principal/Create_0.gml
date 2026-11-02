@@ -1,4 +1,6 @@
 // Pantalla de inicio. Tiene dos pantallas: "principal" y "creditos". Las opciones son obj_panel_opciones
+sprite_prefetch(spr_menu);
+
 // Todo se dibuja en el Draw GUI sobre el lienzo de 3840x2160 del HUD, escalado a la GUI real
 cargar_opciones();
 
@@ -13,11 +15,11 @@ escala_botones = array_create(array_length(botones_principal), 1);
 
 panel_abierto = false; // Para saber cuándo se cierra el panel de opciones
 
-// Créditos: cambien estos nombres por los del equipo (la fuente no tiene acentos)
+// Créditos (la fuente no tiene acentos)
 creditos = [
     "Aninly-Mel",
     "FrangoLoco",
-    "Gilberto Cervantes Rodriguez",
+    "Gilberto",
     "Nissy Nini",
 ];
 

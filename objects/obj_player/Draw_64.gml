@@ -1,4 +1,3 @@
-// Evento Draw GUI de obj_player
 var frame_hud  = obtener_frame_salud();
 var ancho_gui  = display_get_gui_width();
 var escala_hud = ancho_gui / 3840;
@@ -33,7 +32,7 @@ if (inventario_alpha > 0.01)
     var inv_w = sprite_get_width(spr_inventario)  * esc_inv;
     var inv_h = sprite_get_height(spr_inventario) * esc_inv;
 
-    // AJUSTE VERTICAL Y HORIZONTAL
+    // Posicionamiento
     var hud_y      = 120 * escala_hud;
     var hud_alto   = sprite_get_height(spr_hud_salud) * escala_hud;
     var hud_bottom = hud_y + hud_alto;
@@ -46,9 +45,9 @@ if (inventario_alpha > 0.01)
     draw_set_alpha(inventario_alpha);
     draw_sprite_ext(spr_inventario, 0, inv_x, inv_y, esc_inv, esc_inv, 0, c_white, 1);
 
-    // TEXTO TÍTULO
+    // Título
     var sprite_titulo_x = 750;
-    var sprite_titulo_y = 1000; // Ajusta esto si el texto de "INVENTARIO" está muy abajo
+    var sprite_titulo_y = 1000; 
     var titulo_x = inv_x - inv_w / 2 + sprite_titulo_x * esc_inv;
     var titulo_y = inv_y - inv_h / 2 + sprite_titulo_y * esc_inv;
 
@@ -56,36 +55,44 @@ if (inventario_alpha > 0.01)
     draw_set_valign(fa_middle);
     dibujar_texto_contorno(titulo_x, titulo_y, "INVENTARIO", 0.7 * esc_inv, c_white, 2 * esc_inv);
 
-    // DIBUJAR LOS ITEMS
-    // Coordenadas de la cuadrícula dentro del sprite (ajusta estos valores a tu gusto)
-    var start_x = 300;  // Dónde empieza el primer slot a lo ancho
-    var start_y = 1200; // Dónde empieza el primer slot a lo alto (debajo del título)
-    var space_x = 250;  // Separación horizontal entre slots
-    var space_y = 250;  // Separación vertical entre slots
-    var cols = 4;       // Cuántos slots por fila
+    // Dibujar los ítems
+    var start_x = 300;  
+    var start_y = 1200; 
+    var space_x = 250;  
+    var space_y = 250;  
+    var cols = 4;       
 
     for (var i = 0; i < array_length(inventario_items); i++)
     {
         var item = inventario_items[i];
-        
-        // Calcular en qué fila y columna va este item
         var col = i mod cols;
         var fila = floor(i / cols);
 
-        // Calcular posición del slot en la pantalla
         var slot_x = (inv_x - inv_w / 2) + (start_x + col * space_x) * esc_inv;
         var slot_y = (inv_y - inv_h / 2) + (start_y + fila * space_y) * esc_inv;
 
-        // 1. Dibujar el Sprite del item (centrado en el slot)
-        var item_esc = 1.5 * esc_inv; // Ajusta el 1.5 si quieres que el objeto se vea más grande o chico
+        // Ajustar tamaño del ítem dinámicamente 
+        var max_item_size = 400 * esc_inv;
+        var item_esc = min(max_item_size / sprite_get_width(item.spr), max_item_size / sprite_get_height(item.spr));
+        
         draw_sprite_ext(item.spr, 0, slot_x, slot_y - 20 * esc_inv, item_esc, item_esc, 0, c_white, inventario_alpha);
 
-        // 2. Dibujar el Nombre debajo del item
+        // Nombre del ítem
         dibujar_texto_contorno(slot_x, slot_y + 80 * esc_inv, item.nombre, 0.5 * esc_inv, c_white, 2 * esc_inv);
 
-        // 3. Dibujar la Cantidad (esquina inferior derecha del slot)
+        // Cantidad del ítem
         var texto_cant = "x" + string(item.cantidad);
         dibujar_texto_contorno(slot_x + 60 * esc_inv, slot_y + 30 * esc_inv, texto_cant, 0.6 * esc_inv, make_color_rgb(255, 220, 60), 2 * esc_inv);
+    }
+
+    // Mensaje de error
+    if (tiempo_mensaje > 0) {
+        draw_set_alpha(1); 
+        
+        var msg_x = inv_x;
+        var msg_y = inv_y + 250 * esc_inv; 
+        
+        dibujar_texto_contorno(msg_x, msg_y, mensaje_inv, 0.8 * esc_inv, c_red, 2 * esc_inv);
     }
 
     draw_set_alpha(1);

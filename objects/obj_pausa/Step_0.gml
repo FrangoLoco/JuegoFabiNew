@@ -1,4 +1,4 @@
-var tecla_pausa = keyboard_check_pressed(vk_escape) || keyboard_check_pressed(ord("P"));
+var tecla_pausa = keyboard_check_pressed(vk_escape) || keyboard_check_pressed(ord("P")) || global.toque_pausa;
 
 if (!pausado)
 {

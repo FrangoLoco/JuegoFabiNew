@@ -46,6 +46,7 @@ pausar = function()
 
     // Congela todo menos este menú
     instance_deactivate_all(true);
+    reiniciar_toques(); // Los controles táctiles quedan congelados; que no se quede guardado el toque de pausa
     audio_pause_all();
 
     pausado = true;
@@ -68,6 +69,7 @@ quitar_pausa = function()
 
     // Evita que la tecla con la que se cerró el menú haga saltar o atacar al jugador
     io_clear();
+    reiniciar_toques();
 }
 
 elegir_opcion = function()

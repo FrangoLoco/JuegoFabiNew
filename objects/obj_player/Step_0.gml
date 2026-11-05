@@ -1,47 +1,55 @@
-// Temporizador del mensaje de alerta
-if (tiempo_mensaje > 0) {
-    tiempo_mensaje -= 1;
-}
+// 1. Entradas de Control (teclado o botones táctiles en celular)
+var key_left = keyboard_check(vk_left) || keyboard_check(ord("A")) || global.toque_izquierda;
+var key_right = keyboard_check(vk_right) || keyboard_check(ord("D")) || global.toque_derecha;
+var key_jump = keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W")) || global.toque_salto;
+var key_abajo = keyboard_check(vk_down) || keyboard_check(ord("S"));
+var key_ataque = keyboard_check_pressed(ord("Z")) || global.toque_ataque;
+var key_ataque_bajo = keyboard_check_pressed(ord("C")) || (key_ataque && key_abajo) || global.toque_ataque_bajo; // C o Abajo + Z
 
-// Abrir/Cerrar Inventario
-if (keyboard_check_pressed(ord("X")))
-{
-    inventario_abierto = !inventario_abierto;
-    
-    // Si cerramos el inventario, borramos el mensaje de error de golpe
-    if (!inventario_abierto) {
-        tiempo_mensaje = 0;
-    }
-}
-inventario_alpha = lerp(inventario_alpha, inventario_abierto ? 1 : 0, 0.2);
-
-// 1. Entradas de Control
-var key_left = keyboard_check(vk_left) || keyboard_check(ord("A"));
-var key_right = keyboard_check(vk_right) || keyboard_check(ord("D"));
-var key_jump = keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W"));
-var key_ataque = keyboard_check_pressed(ord("Z")); 
+var en_suelo = place_meeting(x, y + 1, obj_colision);
 
 // 2. Físicas
 var move = key_right - key_left;
 hsp = move * walksp;
 vsp = vsp + grv;
 
-if (place_meeting(x, y + 1, obj_colision)) && (key_jump)
+// Durante el ataque bajo el jugador se compromete: no puede caminar ni saltar
+var bloqueado = (estado == "atacando" && !ataque_actual.moverse);
+
+if (en_suelo && key_jump && !bloqueado)
 {
     vsp = jumpsp;
     audio_play_sound(snd_salto, 1, false);
 }
 
 // 3. Ataque
-if (key_ataque) && (estado == "libre")
+// Alto (Z): rápido, cubre arriba y se puede usar caminando o en el aire
+// Bajo (C o Abajo + Z): estocada con embestida, más alcance y daño, pero solo en el suelo y deja al jugador expuesto
+if (estado == "libre")
 {
-    estado = "atacando";
-    image_index = 0;
-    audio_play_sound(snd_cuchillo, 1, false);
-    var hitbox = instance_create_depth(x, y - 30, depth, obj_hitbox_ataque);
-    hitbox.image_xscale = direccion_visual; 
-    hitbox.danio = danio_ataque;
-    alarm[1] = 40; 
+    if (key_ataque_bajo && en_suelo) iniciar_ataque(ataque_bajo);
+    else if (key_ataque || key_ataque_bajo) iniciar_ataque(ataque_alto);
+}
+
+if (estado == "atacando")
+{
+    tiempo_ataque += 1;
+
+    if (!ataque_actual.moverse)
+    {
+        hsp = impulso_ataque * direccion_visual;
+        impulso_ataque *= 0.85;
+    }
+
+    // El golpe sale después del arranque del ataque
+    if (tiempo_ataque == ataque_actual.golpe_inicio)
+    {
+        crear_hitbox(ataque_actual);
+        impulso_ataque = ataque_actual.impulso;
+        if (ataque_actual.impulso > 0) crear_particulas(x, y, 6, make_color_rgb(150, 120, 90), 15); // Polvo de la embestida
+    }
+
+    if (tiempo_ataque >= ataque_actual.duracion) estado = "libre";
 }
 
 // 4. Colisiones
@@ -62,7 +70,7 @@ y += vsp;
 // 5. Renderizado jerárquico
 if (estado == "atacando")
 {
-    sprite_index = spr_player_cuchillo;
+    sprite_index = ataque_actual.sprite;
 }
 else
 {
@@ -82,44 +90,5 @@ var caminando = (estado == "libre") && place_meeting(x, y + 1, obj_colision) && 
 if (caminando && !audio_is_playing(snd_pasos)) { audio_play_sound(snd_pasos, 1, true); }
 else if (!caminando && audio_is_playing(snd_pasos)) { audio_stop_sound(snd_pasos); }
 
-// 6. Orientación visual
-if (hsp != 0) direccion_visual = sign(hsp);
-
-// 7. Monedas HUD
-if (monedas_hud < global.monedas)
-{
-    temporizador_monedas -= 1;
-    if (temporizador_monedas <= 0)
-    {
-        monedas_hud += 1;
-        escala_monedas = 1.4;
-        temporizador_monedas = 8;
-    }
-}
-else { monedas_hud = global.monedas; }
-escala_monedas = lerp(escala_monedas, 1, 0.15);
-
-// 8. Uso de Hongo
-if (inventario_abierto) 
-{
-    if (keyboard_check_pressed(ord("E"))) 
-    {
-        var resultado = usar_hongo();
-        
-        switch (resultado)
-        {
-            case "usado":
-					//nota: busquen sonidos plebada
-                // audio_play_sound(snd_curacion, 1, false);
-                break;
-            case "sin_hongos":
-                mensaje_inv = "No tienes hongos en el inventario.";
-                tiempo_mensaje = 120;
-                break;
-            case "vida_llena":
-                mensaje_inv = "Tu vida ya esta al maximo.";
-                tiempo_mensaje = 120;
-                break;
-        }
-    }
-}
+// 6. Orientación visual (no se voltea a media animación de ataque)
+if (hsp != 0 && estado == "libre") direccion_visual = sign(hsp);

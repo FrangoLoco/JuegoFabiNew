@@ -18,3 +18,10 @@ function crear_particulas(_x, _y, _cantidad, _color, _fuerza)
         particula.color = _color;
     }
 }
+
+// Avisa que los enemigos están atacando al jugador. Mientras dure (en fotogramas) el guía se esconde (ver obj_guia)
+function avisar_combate(_duracion)
+{
+    if (!variable_global_exists("combate")) global.combate = 0;
+    global.combate = max(global.combate, _duracion);
+}

@@ -36,3 +36,11 @@ y_suelo = y;               // Altura del suelo donde se dibuja la sombra de caí
 
 // Estados: "patrulla", "aviso", "salto", "apice", "picada", "clavado"
 estado = "patrulla";
+
+// Clavado en el suelo es vulnerable al ataque bajo; en el aire, al ataque alto
+multiplicador_golpe = function(_tipo)
+{
+    if (_tipo == "bajo" && estado == "clavado") return 2;
+    if (_tipo == "alto" && (estado == "salto" || estado == "apice" || estado == "picada")) return 1.5;
+    return 1;
+}

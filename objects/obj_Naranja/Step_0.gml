@@ -11,6 +11,9 @@ if (furia) {
 tiempo_flotar += furia ? 4 : 2;
 y = inicio_y + dsin(tiempo_flotar) * 25;
 
+// Mientras está enojada o disparando el guía se esconde
+if (estado != "idle") avisar_combate(150);
+
 // Tiembla mientras se enoja para avisar que va a disparar
 temblor = (estado == "enojada" && image_speed > 0) ? (furia ? 10 : 6) : 0;
 

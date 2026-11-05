@@ -20,6 +20,12 @@ furia = false;     // Se activa al bajar de la mitad de vida. Cada enemigo decid
 // Colores según el nivel: 1 = amarillo, 2 = naranja, 3 = rosa
 colores_nivel = [c_white, make_color_rgb(255, 230, 60), make_color_rgb(255, 150, 30), make_color_rgb(255, 60, 200)];
 
+// Cuánto daño extra recibe según el ataque del jugador ("alto" o "bajo"). Los hijos lo sobrescriben
+multiplicador_golpe = function(_tipo)
+{
+    return 1;
+}
+
 // Recibe un golpe del jugador: resta vida, muestra el daño y si muere suelta sus monedas
 // direccion: 1 o -1, hacia dónde sale empujado
 recibir_golpe = function(cantidad, direccion)

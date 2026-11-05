@@ -41,6 +41,9 @@ if (place_meeting(x, y + 1, obj_colision))
 
             // Cuando te persigue descansa menos entre saltos
             temporizador = irandom_range(35, 55);
+
+            // Está atacando al jugador: el guía se esconde
+            avisar_combate(150);
         }
         else
         {

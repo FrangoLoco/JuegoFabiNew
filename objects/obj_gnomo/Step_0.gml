@@ -8,6 +8,9 @@ if (furia)
 }
 var multiplicador = furia ? 1.6 : 1;
 
+// Mientras ataca (desde el aviso hasta desclavarse) el guía se esconde
+if (estado != "patrulla") avisar_combate(150);
+
 // Aplicar gravedad en casi todos los estados excepto estando clavado o flotando en el ápice
 if (estado != "clavado" && estado != "apice") {
     vsp += grv;

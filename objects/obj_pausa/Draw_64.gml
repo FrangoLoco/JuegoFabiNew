@@ -64,7 +64,7 @@ for (var i = 0; i < array_length(opciones); i++)
 draw_set_halign(fa_center);
 
 // 7. Controles
-dibujar_texto_contorno(cx, cy + 520 * e, "W/S  Elegir      Enter  Aceptar      Esc  Continuar", 0.55 * e, make_color_rgb(150, 170, 240), 3 * e);
+if (!es_movil()) dibujar_texto_contorno(cx, cy + 520 * e, "W/S  Elegir      Enter  Aceptar      Esc  Continuar", 0.55 * e, make_color_rgb(150, 170, 240), 3 * e); // En celular no hay teclado
 
 // Restaurar valores para no afectar otros dibujos
 draw_set_alpha(1);

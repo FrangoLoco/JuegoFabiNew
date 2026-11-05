@@ -57,7 +57,7 @@ var volver = rect_volver();
 dibujar_boton((volver[0] + volver[2]) / 2, (volver[1] + volver[3]) / 2 + desliz, (volver[2] - volver[0]) / 2, (volver[3] - volver[1]) / 2, "VOLVER", seleccion == 3, seleccion == 3 ? 1.08 : 1, e, aparicion);
 
 draw_set_halign(fa_center);
-dibujar_texto_contorno(cx, cy + 560 * e + desliz, "W/S  Elegir      A/D  Ajustar      Esc  Volver", 0.55 * e, make_color_rgb(150, 170, 240), 3 * e);
+if (!es_movil()) dibujar_texto_contorno(cx, cy + 560 * e + desliz, "W/S  Elegir      A/D  Ajustar      Esc  Volver", 0.55 * e, make_color_rgb(150, 170, 240), 3 * e); // En celular no hay teclado
 
 // Restaurar valores para no afectar otros dibujos
 draw_set_alpha(1);

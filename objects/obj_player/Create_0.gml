@@ -87,11 +87,15 @@ if (!variable_global_exists("monedas")) global.monedas = 0;
 global.sacudida = 0;
 global.combate = 0;
 
+// Controles táctiles: los toques se reinician antes de crear lo que los lee (ver scr_controles)
+reiniciar_toques();
+
 // Instancias que acompañan al jugador en cada sala
 if (!instance_exists(obj_pausa)) instance_create_depth(0, 0, -10000, obj_pausa);           // Menú de pausa
 if (!instance_exists(obj_hud)) instance_create_depth(0, 0, -9000, obj_hud);                // Vida y monedas
 if (!instance_exists(obj_inventario)) instance_create_depth(0, 0, -9500, obj_inventario);  // Inventario (se dibuja encima del HUD)
 if (!instance_exists(obj_guia)) instance_create_depth(x - 750, y, depth + 1, obj_guia);    // Guía que sigue al jugador
+if (es_movil() && !instance_exists(obj_controles_tactiles)) instance_create_depth(0, 0, -9800, obj_controles_tactiles); // Botones en pantalla (solo celular, encima del inventario)
 
 // Frame del HUD de salud
 obtener_frame_salud = function()

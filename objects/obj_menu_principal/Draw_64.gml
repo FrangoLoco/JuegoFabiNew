@@ -52,8 +52,8 @@ switch (pantalla)
             }
             draw_set_alpha(1); // Restaurar para que el texto de ayuda no sea transparente
 
-            // Texto de ayuda inferior
-            dibujar_texto_contorno(cx, alto_gui - 110 * e, "W/S  Elegir      Enter  Aceptar", 0.55 * e, make_color_rgb(150, 170, 240), 3 * e);
+            // Texto de ayuda inferior (en celular no hay teclado)
+            if (!es_movil()) dibujar_texto_contorno(cx, alto_gui - 110 * e, "W/S  Elegir      Enter  Aceptar", 0.55 * e, make_color_rgb(150, 170, 240), 3 * e);
         }
         break;
 

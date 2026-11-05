@@ -4,7 +4,7 @@ if (tiempo_mensaje > 0) {
 }
 
 // Abrir/Cerrar Inventario
-if (keyboard_check_pressed(ord("X")))
+if (keyboard_check_pressed(ord("X")) || global.toque_inventario)
 {
     inventario_abierto = !inventario_abierto;
     

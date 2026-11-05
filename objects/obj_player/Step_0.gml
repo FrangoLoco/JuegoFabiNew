@@ -1,10 +1,10 @@
-// 1. Entradas de Control
-var key_left = keyboard_check(vk_left) || keyboard_check(ord("A"));
-var key_right = keyboard_check(vk_right) || keyboard_check(ord("D"));
-var key_jump = keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W"));
+// 1. Entradas de Control (teclado o botones táctiles en celular)
+var key_left = keyboard_check(vk_left) || keyboard_check(ord("A")) || global.toque_izquierda;
+var key_right = keyboard_check(vk_right) || keyboard_check(ord("D")) || global.toque_derecha;
+var key_jump = keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W")) || global.toque_salto;
 var key_abajo = keyboard_check(vk_down) || keyboard_check(ord("S"));
-var key_ataque = keyboard_check_pressed(ord("Z"));
-var key_ataque_bajo = keyboard_check_pressed(ord("C")) || (key_ataque && key_abajo); // C o Abajo + Z
+var key_ataque = keyboard_check_pressed(ord("Z")) || global.toque_ataque;
+var key_ataque_bajo = keyboard_check_pressed(ord("C")) || (key_ataque && key_abajo) || global.toque_ataque_bajo; // C o Abajo + Z
 
 var en_suelo = place_meeting(x, y + 1, obj_colision);
 
